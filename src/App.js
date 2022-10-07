@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
+
+import './global.css'
+
+import Rotas from "./rotas";
 
 export default function App() {
+
   return (
-    <h1>Hello World</h1>
+   <Rotas/>
   );
 }
