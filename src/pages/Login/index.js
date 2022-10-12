@@ -1,18 +1,58 @@
-import React from "react";
+import { React, useState } from "react";
+import { useNavigate } from 'react-router-dom'
+
+import api from "../../services/api";
 import './styles.css'
 
 import logoImage from '../../assets/logo.svg'
 import padlock from '../../assets/padlock.png'
 
 export default function Login() {
+
+    const [login, setLogin] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const navigate = useNavigate();
+
+    async function logar(e) {
+        e.preventDefault();
+
+        const data = {
+            login, senha
+        };
+
+        try {
+            const response = await api.post('/api/v1/Auth/signIn', data)
+
+            localStorage.setItem('login', login);
+            localStorage.setItem('accessToken', response.data.data.accessToken)
+            localStorage.setItem('refreshToken', response.data.data.refreshToken)
+
+            navigate('/produtos');
+        } catch (error) {
+            alert('Login failed! Try again!')
+        }
+    }
+
     return (
         <div className="login-container">
             <section className="form">
             {/* <img src={logoImage} alt="DesafioDev Logo"/> */}
-            <form>
+            <form onSubmit={logar}>
                 <h1>Access your Account</h1>
-                <input placeholder="Username"/>
-                <input type="passwork" placeholder="Password"/>
+
+                <input 
+                    placeholder="Login" 
+                    value={login} 
+                    onChange={e => setLogin(e.target.value)}
+                />
+
+                <input 
+                    type="password" 
+                    placeholder="Senha" 
+                    value={senha} 
+                    onChange={e => setSenha(e.target.value)}
+                />
 
                 <button className="button" type="submit">Login</button>
             </form>
