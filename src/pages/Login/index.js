@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import jwtDecode from "jwt-decode";
 
 import api from "../../services/api";
 import './styles.css'
@@ -24,13 +25,17 @@ export default function Login() {
         try {
             const response = await api.post('/api/v1/Auth/signIn', data)
 
+            var decoded = jwtDecode(response.data.data.accessToken);
+            
             localStorage.setItem('login', login);
-            localStorage.setItem('accessToken', response.data.data.accessToken)
-            localStorage.setItem('refreshToken', response.data.data.refreshToken)
+            localStorage.setItem('codigoUsuario', decoded.sub);
+            localStorage.setItem('nomeUsuario', decoded.unique_name);
+            localStorage.setItem('accessToken', response.data.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.data.refreshToken);
 
             navigate('/produtos');
         } catch (error) {
-            alert('Login failed! Try again!')
+            alert(error.response.data.erros)
         }
     }
 
