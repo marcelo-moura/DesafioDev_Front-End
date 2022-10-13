@@ -16,8 +16,8 @@ export default function NovoProduto() {
     const nomeUsuario = localStorage.getItem('nomeUsuario');
 
     const navigate = useNavigate();
-
-    async function criarProduto(e){
+    
+    async function criarProduto(e) {
         e.preventDefault();
 
         const data = {
@@ -39,11 +39,9 @@ export default function NovoProduto() {
             });
             
         } catch (error) {
-            alert(error.response.data.erros)
+            alert(error.response.data.erros);
         }
-
         navigate('/produtos');
-
     }
 
     return (

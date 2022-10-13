@@ -23,7 +23,7 @@ export default function Login() {
         };
 
         try {
-            const response = await api.post('/api/v1/Auth/signIn', data)
+            const response = await api.post('/api/v1/Auth/signIn', data);
 
             var decoded = jwtDecode(response.data.data.accessToken);
             
@@ -35,7 +35,7 @@ export default function Login() {
 
             navigate('/produtos');
         } catch (error) {
-            alert(error.response.data.erros)
+            alert(error.response.data.erros);
         }
     }
 
@@ -43,24 +43,24 @@ export default function Login() {
         <div className="login-container">
             <section className="form">
             {/* <img src={logoImage} alt="DesafioDev Logo"/> */}
-            <form onSubmit={logar}>
-                <h1>Access your Account</h1>
+                <form onSubmit={logar}>
+                    <h1>Access your Account</h1>
 
-                <input 
-                    placeholder="Login" 
-                    value={login} 
-                    onChange={e => setLogin(e.target.value)}
-                />
+                    <input 
+                        placeholder="Login" 
+                        value={login} 
+                        onChange={e => setLogin(e.target.value)}
+                    />
 
-                <input 
-                    type="password" 
-                    placeholder="Senha" 
-                    value={senha} 
-                    onChange={e => setSenha(e.target.value)}
-                />
+                    <input 
+                        type="password" 
+                        placeholder="Senha" 
+                        value={senha} 
+                        onChange={e => setSenha(e.target.value)}
+                    />
 
-                <button className="button" type="submit">Login</button>
-            </form>
+                    <button className="button" type="submit">Login</button>
+                </form>
             </section>
             {/* <img src={padlock} alt="Login"/> */}
         </div>
