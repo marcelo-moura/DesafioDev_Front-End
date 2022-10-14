@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Login from "./pages/Login";
-import NovoProduto from "./pages/NovoProduto";
 import Produtos from "./pages/Produtos";
+import NovoProduto from "./pages/NovoProduto";
+import EditaProduto from "./pages/EditaProduto";
 
 export default function Rotas() {
     return (
@@ -12,6 +13,7 @@ export default function Rotas() {
                 <Route path="/" exact element={<Login/>} />
                 <Route path="/produtos" element={<Produtos/>} />
                 <Route path="/produto/novo" element={<NovoProduto/>} />
+                <Route path="/produto/editar/:produtoId" element={<EditaProduto/>} />
             </Routes>
         </BrowserRouter>
     );

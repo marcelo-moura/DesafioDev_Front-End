@@ -1,12 +1,13 @@
-import { React, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
 import api from "../../services/api";
 import './styles.css'
 
-export default function NovoProduto() {
-
+export default function EditaProduto() {
+    
+    const [id, setId] = useState(null);
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [preco, setPreco] = useState('');
@@ -15,12 +16,42 @@ export default function NovoProduto() {
     const codigoUsuario = localStorage.getItem('codigoUsuario');
     const nomeUsuario = localStorage.getItem('nomeUsuario');
 
+    const { produtoId } = useParams();
+
     const navigate = useNavigate();
-    
-    async function criarProduto(e) {
+
+    const accessToken = localStorage.getItem('accessToken');
+    const authorization = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    }
+
+    useEffect(() => {
+        loadProduto();
+    }, produtoId);
+
+    async function loadProduto() {
+        try {
+            const response = await api.get(`api/v1/Produto/${produtoId}`, authorization);
+            const produto = response.data.data;
+
+            setId(produto.id);
+            setNome(produto.nome);
+            setDescricao(produto.descricao);
+            setPreco(produto.preco);
+            setQuantidade(produto.quantidade);
+        } catch (error) {
+            alert(error.response.data.errors);
+            navigate('/produtos');
+        }
+    }
+
+    async function editarProduto(e) {
         e.preventDefault();
 
         const data = {
+            id,
             nome,
             descricao,
             preco,
@@ -29,34 +60,26 @@ export default function NovoProduto() {
             nomeUsuario
         };
 
-        const accessToken = localStorage.getItem('accessToken');
-        const authorization = {
-            headers:{
-                Authorization: `Bearer ${accessToken}`
-            }
-        };
-
         try {
-            await api.post('api/v1/Produto', data, authorization);            
+            await api.put(`api/v1/Produto`, data, authorization);
         } catch (error) {
-            alert(error.response.data.erros);
+            alert(error.response.data.errors);
         }
-        navigate('/produtos');
     }
-
+    
     return (
-        <div className="novo-produto-container">
+        <div className="edit-produto-container">
             <div className="content">
                 <section className="form">
                     {/* <img src={logoImage} alt="NovoProduto" /> */}
-                    <h1>Novo Produto</h1>
-                    <p>Insira as informações do produto e clique em Adicionar</p>
+                    <h1>Editar Produto</h1>
+                    <p>Insira as informações do produto e clique em Editar</p>
                     <Link className="back-link" to="/produtos">
                         <FiArrowLeft size={16} color="#251FC65"/>
                         Home
                     </Link>
                 </section>
-                <form onSubmit={criarProduto}>
+                <form onSubmit={editarProduto}>
                     <input 
                         placeholder="Nome"
                         value={nome}
@@ -81,7 +104,7 @@ export default function NovoProduto() {
                         onChange={e => setQuantidade(e.target.value)}
                     />
 
-                    <button type="submit" className="button">Adicionar</button>
+                    <button type="submit" className="button">Editar</button>
                 </form>
             </div>
         </div>

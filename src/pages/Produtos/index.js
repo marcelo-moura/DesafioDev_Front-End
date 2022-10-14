@@ -9,31 +9,30 @@ export default function Produtos() {
 
     const [produtos, setProdutos] = useState([]);
 
-    const codigoUsuario = localStorage.getItem('codigoUsuario');
     const nomeUsuario = localStorage.getItem('nomeUsuario'); 
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
 
+    const authorization = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    };
+
     useEffect(() => {
-        api.get('api/v1/Produto/1/20/1/asc', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        }).then(response => {
+        api.get('api/v1/Produto/1/20/1/asc', authorization).then(response => {
             setProdutos(response.data.data.listObject);
         })
     }, [accessToken]);
 
+    function editarProduto(id) {
+        navigate(`/produto/editar/${id}`)
+    }
+
     async function deletarProduto(id) {
         try {
-            await api.delete(`api/v1/Produto/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-
+            await api.delete(`api/v1/Produto/${id}`, authorization);
             setProdutos(produtos.filter(produto => produto.id !== id));
-
         } catch (error) {
             alert(error.response.data.errors);
         }
@@ -41,14 +40,9 @@ export default function Produtos() {
 
     async function deslogar() {
         try {
-            await api.get('api/v1/Auth/revoke', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-
-           localStorage.clear();
-           navigate('/');
+            await api.get('api/v1/Auth/revoke', authorization);
+            localStorage.clear();
+            navigate('/');
         } catch (error) {
             alert(error.response.data.errors);
         }
@@ -71,14 +65,17 @@ export default function Produtos() {
                      <li key={produto.id}>
                         <strong>Nome:</strong>
                         <p>{produto.nome}</p>
+                        
                         <strong>Descrição:</strong>
                         <p>{produto.descricao}</p>
+                        
                         <strong>Preço:</strong>
                         <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(produto.preco)}</p>
+                        
                         <strong>Quantidade:</strong>
                         <p>{produto.quantidade}</p>                    
     
-                        <button type="button">
+                        <button type="button" onClick={() => editarProduto(produto.id)}>
                             <FiEdit size={20} color="#251FC5"/>
                         </button>
                         <button type="button" onClick={() => deletarProduto(produto.id)}>
