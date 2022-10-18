@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
 import api from "../../services/api";
-import './styles.css'
+import './styles.css';
 
 export default function NovoProduto() {
 
@@ -29,15 +29,8 @@ export default function NovoProduto() {
             nomeUsuario
         };
 
-        const accessToken = localStorage.getItem('accessToken');
-        const authorization = {
-            headers:{
-                Authorization: `Bearer ${accessToken}`
-            }
-        };
-
         try {
-            await api.post('api/v1/Produto', data, authorization);            
+            await api.post('api/v1/Produto', data);            
         } catch (error) {
             alert(error.response.data.erros);
         }

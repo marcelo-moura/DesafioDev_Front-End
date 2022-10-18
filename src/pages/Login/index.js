@@ -1,12 +1,12 @@
 import { React, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 
 import api from "../../services/api";
-import './styles.css'
+import './styles.css';
 
-import logoImage from '../../assets/logo.svg'
-import padlock from '../../assets/padlock.png'
+import logoImage from '../../assets/logo.svg';
+import padlock from '../../assets/padlock.png';
 
 export default function Login() {
 

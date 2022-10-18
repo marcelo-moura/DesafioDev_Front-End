@@ -20,20 +20,13 @@ export default function EditaProduto() {
 
     const navigate = useNavigate();
 
-    const accessToken = localStorage.getItem('accessToken');
-    const authorization = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    }
-
     useEffect(() => {
         loadProduto();
-    }, produtoId);
+    }, []);
 
     async function loadProduto() {
         try {
-            const response = await api.get(`api/v1/Produto/${produtoId}`, authorization);
+            const response = await api.get(`api/v1/Produto/${produtoId}`);
             const produto = response.data.data;
 
             setId(produto.id);
@@ -61,7 +54,7 @@ export default function EditaProduto() {
         };
 
         try {
-            await api.put(`api/v1/Produto`, data, authorization);
+            await api.put(`api/v1/Produto`, data);
         } catch (error) {
             alert(error.response.data.errors);
         }
