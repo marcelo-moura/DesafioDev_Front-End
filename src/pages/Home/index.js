@@ -19,7 +19,7 @@ export default function Home() {
     }, []);
 
     async function detalheProduto(id) {
-        console.log(id);
+        navigate(`/home/detalhe/${id}`);
     }
 
     return (

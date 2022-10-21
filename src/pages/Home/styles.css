@@ -27,14 +27,15 @@
 }
 
 .home-container-itemLink {
+    cursor: pointer;
     text-decoration: none;
 }
 
 .home-container-item {
     border-radius: 4px;
     background-color: #fff;
-    height: 120px;
-    width: 262px;
+    height: 350px;
+    width: 265px;
     color: #29303b;
     margin-bottom: 10px;
     margin-right: 10px;
@@ -42,8 +43,8 @@
 }
 
 .home-container-thumbnail {
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: 265px;
     border: 0;
     vertical-align: middle;
     float: left;
@@ -51,10 +52,13 @@
 }
 
 .home-container-titlePane {
+    font-size: large;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
 .home-container-pricePane {
+    font-size: large;
+    font-weight: 700;
     margin-bottom: 5px;
 }

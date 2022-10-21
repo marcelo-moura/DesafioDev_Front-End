@@ -6,6 +6,7 @@ import Produtos from "./pages/Produtos";
 import NovoProduto from "./pages/NovoProduto";
 import EditaProduto from "./pages/EditaProduto";
 import Home from "./pages/Home";
+import DetalheProduto from "./pages/DetalheProduto";
 
 export default function Rotas() {
     return (
@@ -16,6 +17,7 @@ export default function Rotas() {
                 <Route path="/produto/novo" element={<NovoProduto/>} />
                 <Route path="/produto/editar/:produtoId" element={<EditaProduto/>} />
                 <Route path="/home" element={<Home/>} />
+                <Route path="/home/detalhe/:produtoId" element={<DetalheProduto/>} />
             </Routes>
         </BrowserRouter>
     );

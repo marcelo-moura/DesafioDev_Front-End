@@ -33,7 +33,7 @@ export default function Login() {
             localStorage.setItem('accessToken', response.data.data.accessToken);
             localStorage.setItem('refreshToken', response.data.data.refreshToken);
 
-            navigate('/produtos');
+            navigate('/home');
         } catch (error) {
             alert(error.response.data.erros);
         }
