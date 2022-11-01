@@ -46,7 +46,7 @@ export default function NovoProduto() {
                     <p>Insira as informações do produto e clique em Adicionar</p>
                     <Link className="back-link" to="/produtos">
                         <FiArrowLeft size={16} color="#251FC65"/>
-                        Home
+                        Voltar
                     </Link>
                 </section>
                 <form onSubmit={criarProduto}>

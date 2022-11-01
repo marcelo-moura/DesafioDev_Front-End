@@ -8,6 +8,7 @@
 .produto-container header {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .produto-container header span {
@@ -25,7 +26,6 @@
 
 .produto-container header a {
     width: 260px;
-    margin-left: auto;
     margin-top: 0;
 }
 

@@ -69,7 +69,7 @@ export default function EditaProduto() {
                     <p>Insira as informações do produto e clique em Editar</p>
                     <Link className="back-link" to="/produtos">
                         <FiArrowLeft size={16} color="#251FC65"/>
-                        Home
+                        Voltar
                     </Link>
                 </section>
                 <form onSubmit={editarProduto}>

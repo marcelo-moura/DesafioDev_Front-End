@@ -9,11 +9,10 @@ import padlock from '../../assets/padlock.png';
 export default function Home() {
     const [produtos, setProdutos] = useState([]);
 
-    const nomeUsuario = localStorage.getItem('nomeUsuario');
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get('api/v1/Produto/1/20/1/asc').then(response => {
+        api.get('api/v1/Vitrine/1/20/1/asc').then(response => {
             setProdutos(response.data.data.listObject);
         })
     }, []);
@@ -24,11 +23,6 @@ export default function Home() {
 
     return (
         <div className="home-container">
-            <header>
-                <span>Bem-vindo, <strong>{nomeUsuario.toLowerCase()}</strong>!</span>               
-            </header>
-            <h1></h1>
-
             <div className="home-container-listContainer">
                 {produtos.map(produto => (
                     <a key={produto.id} className="home-container-itemLink" onClick={() => detalheProduto(produto.id)}>

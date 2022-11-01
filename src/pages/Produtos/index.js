@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FiPower, FiEdit, FiTrash2 } from 'react-icons/fi';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
 
 import api from "../../services/api";
 import './styles.css';
@@ -9,7 +9,6 @@ export default function Produtos() {
 
     const [produtos, setProdutos] = useState([]);
 
-    const nomeUsuario = localStorage.getItem('nomeUsuario');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,30 +28,17 @@ export default function Produtos() {
         } catch (error) {
             alert(error.response.data.errors);
         }
-    }
-
-    async function deslogar() {
-        try {
-            await api.get('api/v1/Auth/revoke');
-            localStorage.clear();
-            navigate('/');
-        } catch (error) {
-            alert(error.response.data.errors);
-        }
-    }
+    }    
 
     return (
         <div className="produto-container">
             <header>
                 {/* <img src={logoImage} alt="Produtos" /> */}
-                <span>Bem-vindo, <strong>{nomeUsuario.toLowerCase()}</strong>!</span>
-                <Link className="button" to="/produto/novo">Novo Produto</Link>
-                <button type="button" onClick={deslogar}>
-                    <FiPower size={18} color="#251FC5" />
-                </button>
+                {
+                    localStorage.getItem('accessToken') != null ? <Link className="button" to="/produto/novo">Novo Produto</Link> : ""
+                }
+                
             </header>
-
-            <h1>Produtos</h1>
             <ul>
                 {produtos.map(produto => (
                      <li key={produto.id}>

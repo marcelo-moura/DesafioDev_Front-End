@@ -1,9 +1,9 @@
 .novo-produto-container {
     width: 100%;
     max-width: 1120px;
-    height: 100vh;
+    height: 80vh;
     margin: 0 auto;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
 }
