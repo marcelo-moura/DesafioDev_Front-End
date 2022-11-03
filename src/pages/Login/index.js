@@ -26,8 +26,9 @@ export default function Login() {
             const response = await api.post('/api/v1/Auth/signIn', data);
 
             var decoded = jwtDecode(response.data.data.accessToken);
-            
+                        
             localStorage.setItem('login', login);
+            localStorage.setItem('id', decoded.jti);
             localStorage.setItem('codigoUsuario', decoded.sub);
             localStorage.setItem('nomeUsuario', decoded.unique_name);
             localStorage.setItem('accessToken', response.data.data.accessToken);

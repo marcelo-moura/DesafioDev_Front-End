@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from './NavbarElements';
 import { useNavigate } from "react-router-dom";
+import { FaShoppingCart } from 'react-icons/fa';
 
 import api from "../../services/api";
 
@@ -28,6 +29,9 @@ export default function Navbar() {
             </NavLink>
             <NavLink to='/produtos'>
                 Produtos
+            </NavLink> 
+            <NavLink to='/carrinho'>
+                <FaShoppingCart size={20}></FaShoppingCart>
             </NavLink> 
         </NavMenu>
        

@@ -37,29 +37,7 @@ export default function Home() {
                         </div>
                     </a>
                 ))}
-            </div>
-
-            {/* <ul>
-                {produtos.map(produto => (
-                     <li key={produto.id}>
-                        <strong>Nome:</strong>
-                        <p>{produto.nome}</p>
-                        
-                        <strong>Descrição:</strong>
-                        <p>{produto.descricao}</p>
-                        
-                        <strong>Preço:</strong>
-                        <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(produto.preco)}</p>
-                        
-                        <strong>Quantidade:</strong>
-                        <p>{produto.quantidade}</p>
-
-                        <Link type="button" className="button" onClick={() => detalheProduto(produto.id)}>
-                            Detalhes
-                        </Link>
-                    </li>
-                ))}
-            </ul> */}
+            </div>           
         </div>
     );
 }

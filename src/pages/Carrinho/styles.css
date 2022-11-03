@@ -1,0 +1,103 @@
+.carrinho-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+.carrinho-container ul {
+    display: list-item;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+}
+
+.carrinho-container ul li {
+    background: #FFFFFF;
+    padding: 24px;
+    margin: 10px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+}
+
+.carrinho-container ul li button {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    border: 0;
+    background: transparent;
+}
+
+.carrinho-container ul li button + button {
+    top: 50px;
+}
+
+.carrinho-container ul li button:hover {
+    opacity: 0.8;
+}
+
+.carrinho-container section {
+    align-items: center;
+    justify-content: center;
+}
+
+.carrinho-container span {
+    margin-right: 10px;
+}
+
+.carrinho-container-header {
+    display: flex;
+    margin-bottom: 5px;   
+    font-size: x-large;
+    font-weight: 700;
+    justify-content: right;
+}
+
+.carrinho-container-thumbnail {
+    height: 50px;
+    width: 50px;
+    float: left;
+    margin-right: 50px;
+}
+
+.carrinho-container-name {
+    width: 150px;
+    font-size: large;
+    font-weight: 700;
+    float: left;
+    margin-left: auto;
+    margin-right: 50px
+}
+
+.carrinho-container-price {
+    width: 150px;
+    font-size: large;
+    font-weight: 700;
+    float: left;
+    margin-left: auto;
+    margin-right: 50px
+}
+
+.carrinho-container-quantity {
+    width: 100px;
+    font-size: large;
+    font-weight: 700;    
+    float: left;
+    margin-left: auto;
+    margin-right: 50px
+}
+
+.carrinho-container ul li p {
+    color: #737380;
+    line-height: 21px;
+    font-size: 25px;
+}
+
+.carrinho-container-footer {
+    display: flex;
+    margin-top: 5px;
+}
+
+.carrinho-container-footer .button {
+    margin: 2px;
+}

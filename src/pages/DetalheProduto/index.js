@@ -13,8 +13,10 @@ export default function DetalheProduto() {
     const [preco, setPreco] = useState('');
     const [quantidade, setQuantidade] = useState(0);
 
+    const idUsuario = localStorage.getItem('id');
     const codigoUsuario = localStorage.getItem('codigoUsuario');
     const nomeUsuario = localStorage.getItem('nomeUsuario');
+    const token = localStorage.getItem('accessToken');
 
     const { produtoId } = useParams();
     const navigate = useNavigate();
@@ -41,16 +43,31 @@ export default function DetalheProduto() {
     async function adicionarCarrinho(e) {
         e.preventDefault();
 
-        const data = {
-            id,
-            nome,
-            descricao,
-            preco,
-            quantidade,
-            codigoUsuario,
-            nomeUsuario
-        };
-        console.log(data);
+        if(!token) {
+            alert('Para adicionar o item no carrinho é necessário realizar o Login.');
+            navigate('/signin');
+        }
+        else {                 
+            const usuarioId = idUsuario;
+            const valorUnitario = preco;       
+
+            const data = {
+                usuarioId,
+                produtoId,
+                nome,
+                valorUnitario,
+                quantidade,
+                codigoUsuario,
+                nomeUsuario
+            };
+    
+            try {
+                await api.post('api/v1/Carrinho/adicionar-item', data);            
+            } catch (error) {
+                alert(error.response.data.erros);
+            }
+            navigate('/home');
+        }
     }
 
     return (
