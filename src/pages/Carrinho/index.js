@@ -29,7 +29,6 @@ export default function Carrinho() {
             try {
                 const response = await api.get(`api/v1/Carrinho/meu-carrinho?clienteId=${idUsuario}`);                
                 setCarrinho(response.data.data);
-                console.log(carrinho);
                 setProdutosCarrinho(response.data.data.items);
             } catch (error) {
                 alert(error.response.data.errors);
@@ -38,11 +37,15 @@ export default function Carrinho() {
         }
     }
 
+    function continuarCompra(){
+        navigate('/checkout');
+    }
+
     async function deletarProduto(id) {     
     } 
 
     return (
-        <div className="carrinho-container">    
+        <div className="carrinho-container">            
             <div className="carrinho-container-header">
                 <span>Total:</span>
                 <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(carrinho.valorTotal)}</p>
@@ -74,7 +77,9 @@ export default function Carrinho() {
                 <Link className="button" to="/home">
                     Voltar
                 </Link>
-                <button type="submit" className="button">Iniciar Pedido</button>
+                <button type="button" className="button" onClick={() => continuarCompra()}>
+                    Continuar Compra
+                </button>
             </div>
         </div>        
     );

@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
 import api from "../../services/api";
-import './styles.css'
+import './styles.css';
 
 export default function EditaProduto() {
     
