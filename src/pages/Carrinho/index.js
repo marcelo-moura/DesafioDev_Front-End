@@ -27,9 +27,14 @@ export default function Carrinho() {
         }
         else {
             try {
-                const response = await api.get(`api/v1/Carrinho/meu-carrinho?clienteId=${idUsuario}`);                
-                setCarrinho(response.data.data);
-                setProdutosCarrinho(response.data.data.items);
+                const response = await api.get(`api/v1/Carrinho/meu-carrinho?clienteId=${idUsuario}`);  
+                if(response.data.data) {
+                    setCarrinho(response.data.data);
+                    setProdutosCarrinho(response.data.data.items);
+                }
+                else {
+                    navigate('/home');
+                }                
             } catch (error) {
                 alert(error.response.data.errors);
                 navigate('/home');
@@ -37,7 +42,10 @@ export default function Carrinho() {
         }
     }
 
-    function continuarCompra(){
+    function continuarCompra() {
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        localStorage.setItem('keyMercadoPago', process.env.REACT_APP_MERCADOPAGO_KEY);
+        localStorage.setItem('apiBaseUrl', process.env.REACT_APP_API_BASE_URL);
         navigate('/checkout');
     }
 
