@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import DetalheProduto from "./pages/DetalheProduto";
 import Carrinho from "./pages/Carrinho";
 import Checkout from "./pages/Checkout";
+import Confirmacao from "./pages/Confirmacao";
 
 export default function Rotas() {
     return (
@@ -22,6 +23,7 @@ export default function Rotas() {
                 <Route path="/home/detalhe/:produtoId" element={<DetalheProduto/>} />
                 <Route path="/carrinho" element={<Carrinho/>} />
                 <Route path="/checkout" element={<Checkout/>} />
+                <Route path="/confirmacao" element={<Confirmacao/>} />
                 <Route path="/signin" element={<Login/>} />
                 <Route path="/produtos" element={<Produtos/>} />
                 <Route path="/produto/novo" element={<NovoProduto/>} />

@@ -92,7 +92,8 @@ export default function DetalheProduto() {
                                 </p>                                                         
                             </div>  
                             <div className="detalhe-produto-container-quantity">
-                                <input 
+                                <input
+                                    type={"number"} 
                                     placeholder="Quantidade"
                                     value={quantidade}
                                     onChange={e => setQuantidade(e.target.value)}

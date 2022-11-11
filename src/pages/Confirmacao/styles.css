@@ -1,0 +1,17 @@
+.confirmacao-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+.confirmacao-container-titlePane {
+    font-size: large;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.confirmacao-container-thumbnail {
+    width: 100%;
+    height: 500px;
+}

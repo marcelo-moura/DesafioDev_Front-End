@@ -1,16 +1,24 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import InnerHTML from 'dangerously-set-html-content'
 
+import api from "../../services/api";
 import './styles.css';
+import { FormMercadoPago } from "../../MercadoPago/formMercadoPago";
 
 export default function Checkout() {
-    const urlFormMercadoPago = `${process.env.REACT_APP_FRONT_BASE_URL}/formMercadoPago/index.html`;
+    const keyMercadoPago = process.env.REACT_APP_MERCADOPAGO_KEY;
 
+    const carrinhoResponse = JSON.parse(localStorage.getItem('carrinho'));  
     const [carrinho, setCarrinho] = useState('');
     const [produtosCarrinho, setProdutosCarrinho] = useState([]);
 
+    const loginUsuario = localStorage.getItem('login');
     const token = localStorage.getItem('accessToken'); 
-    
+
+    const amount = carrinhoResponse == null ? '0' : carrinhoResponse.valorTotal;
+    const htmlMercadoPago = FormMercadoPago.replace('{0}', keyMercadoPago).replace('{1}', amount);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,14 +31,51 @@ export default function Checkout() {
             navigate('/signin');
         }
         else {
-            const carrinho = JSON.parse(localStorage.getItem('carrinho'));             
-            if(carrinho) {
-                setCarrinho(carrinho);           
-                setProdutosCarrinho(carrinho.items);    
+            if(carrinhoResponse) {
+                setCarrinho(carrinhoResponse);           
+                setProdutosCarrinho(carrinhoResponse.items);    
             }
             else {                 
                 navigate('/carrinho');
             }      
+        }
+    }
+
+    async function iniciarPedido(e) {
+        e.preventDefault();
+        const dadosPagamento = JSON.parse(localStorage.getItem('dadosPagamento'));
+
+        var cardholderName =  document.getElementById('form-checkout__cardholderName').value;
+        var cardNumber = document.getElementById('form-checkout__cardNumber').value;
+        var cardExpirationDate= document.getElementById('form-checkout__cardExpirationDate').value;
+        var securityCode = document.getElementById('form-checkout__securityCode').value;
+
+        const body = {
+            pedidoId: carrinho.pedidoId,
+            clienteId: carrinho.usuarioId,
+            clienteLogin: loginUsuario,
+            valorTotal: carrinho.valorTotal,
+            items: carrinho.items,
+            pagamento: {
+                nomeCartao: cardholderName,
+                numeroCartao: cardNumber,
+                expiracaoCartao: cardExpirationDate,
+                cvvCartao: securityCode,
+                parcelas: dadosPagamento.installments,
+                tokenCard: dadosPagamento.token,
+                paymentMethodId: dadosPagamento.paymentMethodId
+            }     
+        }
+
+        try {
+            const response = await api.post('api/v1/Carrinho/iniciar-pedido', body);  
+            if(response.data.success) {
+                localStorage.removeItem('carrinho');
+                localStorage.removeItem('dadosPagamento');
+                navigate('/confirmacao');
+            }            
+        } catch (error) {
+            alert(error.response.data.erros);
         }
     }
     
@@ -40,7 +85,24 @@ export default function Checkout() {
                 <section>
                     <section className="checkout-container-sectionPagamento">                    
                         <h3>Entre com as informações e prossiga com o pedido</h3>
-                        <iframe src={urlFormMercadoPago} />
+                        <InnerHTML html={htmlMercadoPago} />
+                        <form id="form-checkout" onSubmit={iniciarPedido}>
+                            <div className="form-checkout_inline">
+                                <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
+                                <select name="issuer" id="form-checkout__issuer" className="form-checkout-selectIssuer" disabled></select>
+                            </div>
+                            <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
+                            <div className="form-checkout_inline">
+                                <input type="text" name="cardExpirationDate" id="form-checkout__cardExpirationDate" />
+                                <input type="text" name="securityCode" id="form-checkout__securityCode" className="form-checkout-inputCvv"/>
+                            </div>  
+                            <select name="installments" id="form-checkout__installments"></select>
+                            <div className="form-checkout_inline">
+                                <select name="identificationType" id="form-checkout__identificationType" className="form-checkout-selectIdentification"></select>
+                                <input type="text" name="identificationNumber" id="form-checkout__identificationNumber" className="form-checkout-inputIdentification"/>
+                            </div>  
+                            <button type="submit" id="form-checkout__submit" className="button">Iniciar Pedido</button>
+                        </form>
                     </section>                    
                     <section className="checkout-container-sectionCarrinho">
                         <div className="checkout-container-dadosCarrinho">

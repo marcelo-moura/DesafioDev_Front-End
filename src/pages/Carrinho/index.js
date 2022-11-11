@@ -20,7 +20,6 @@ export default function Carrinho() {
     }, []);
 
     async function loadCarrinho() {
-
         if(!token){
             alert('Para visualizar os itens no carrinho é necessário realizar o Login.');
             navigate('/signin');
@@ -44,8 +43,6 @@ export default function Carrinho() {
 
     function continuarCompra() {
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        localStorage.setItem('keyMercadoPago', process.env.REACT_APP_MERCADOPAGO_KEY);
-        localStorage.setItem('apiBaseUrl', process.env.REACT_APP_API_BASE_URL);
         navigate('/checkout');
     }
 

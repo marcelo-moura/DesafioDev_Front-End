@@ -30,10 +30,9 @@
     margin-right: 10px;
 }
 
-.checkout-container-sectionPagamento iframe {
+.checkout-container-sectionPagamento form {
     width: 100%;
     height: 350px;
-    border: none;
 }
 
 .checkout-container-sectionCarrinho {
@@ -107,4 +106,40 @@
 
 .checkout-container-totalPrice {
     float: right;
+}
+
+#form-checkout input {
+    height: 40px;
+    margin-top: 8px;
+}
+
+#form-checkout select {
+    height: 40px;
+    margin-top: 8px;
+}
+  
+#form-checkout button {
+    height: 40px;
+    line-height: 20px;
+}
+
+.form-checkout_inline {
+    display: inline-flex;
+}  
+
+.form-checkout-selectIssuer {
+    width: 200px; 
+    margin-left: 5px;
+}
+
+.form-checkout-inputCvv {
+    margin-left: 5px;
+}
+
+.form-checkout-selectIdentification {
+    width: 200px; 
+}
+
+.form-checkout-inputIdentification {
+    margin-left: 5px;
 }
