@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FiPower } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
 
-import api from "../../services/api";
+import { SearchBar } from "../../components/SearchBar";
+import { getProdutosVitrine } from "../../services/vitrineService";
+
 import './styles.css';
 import padlock from '../../assets/padlock.png';
 
@@ -12,9 +13,9 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get('api/v1/Vitrine/1/20/1/asc').then(response => {
+        getProdutosVitrine().then(response => {
             setProdutos(response.data.data.listObject);
-        })
+        });  
     }, []);
 
     async function detalheProduto(id) {
@@ -23,6 +24,7 @@ export default function Home() {
 
     return (
         <div className="home-container">
+            <SearchBar setProdutos={setProdutos} />
             <div className="home-container-listContainer">
                 {produtos.map(produto => (
                     <a key={produto.id} className="home-container-itemLink" onClick={() => detalheProduto(produto.id)}>
