@@ -3,7 +3,7 @@ import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from './NavbarElement
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from 'react-icons/fa';
 
-import api from "../../services/api";
+import { logout } from "../../services/authService";
 
 export default function Navbar() {
     const nomeUsuario = localStorage.getItem('nomeUsuario');
@@ -12,7 +12,7 @@ export default function Navbar() {
 
     async function deslogar() {
         try {
-            await api.get('api/v1/Auth/revoke');
+            await logout();
             localStorage.clear();
             navigate('/signin');
         } catch (error) {

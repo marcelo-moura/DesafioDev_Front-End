@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InnerHTML from 'dangerously-set-html-content'
 
-import api from "../../services/api";
+import { iniciarPedidoCliente } from "../../services/carrinhoService";
 import './styles.css';
 import { FormMercadoPago } from "../../MercadoPago/formMercadoPago";
 
@@ -50,7 +50,7 @@ export default function Checkout() {
         var cardExpirationDate= document.getElementById('form-checkout__cardExpirationDate').value;
         var securityCode = document.getElementById('form-checkout__securityCode').value;
 
-        const body = {
+        const data = {
             pedidoId: carrinho.pedidoId,
             clienteId: carrinho.usuarioId,
             clienteLogin: loginUsuario,
@@ -68,7 +68,7 @@ export default function Checkout() {
         }
 
         try {
-            const response = await api.post('api/v1/Carrinho/iniciar-pedido', body);  
+            const response = await iniciarPedidoCliente(data);  
             if(response.data.success) {
                 localStorage.removeItem('carrinho');
                 localStorage.removeItem('dadosPagamento');

@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 
 import { getProdutosVitrine } from "../../services/vitrineService";
-
 import './styles.css';
 
 export function SearchBar(props) {

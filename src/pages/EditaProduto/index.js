@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
-import api from "../../services/api";
+import { getProduto, updateProduto } from "../../services/produtoService";
 import './styles.css';
 
 export default function EditaProduto() {
@@ -26,7 +26,7 @@ export default function EditaProduto() {
 
     async function loadProduto() {
         try {
-            const response = await api.get(`api/v1/Produto/${produtoId}`);
+            const response = await getProduto(produtoId);
             const produto = response.data.data;
 
             setId(produto.id);
@@ -54,7 +54,7 @@ export default function EditaProduto() {
         };
 
         try {
-            await api.put(`api/v1/Produto`, data);
+            await updateProduto(data);
         } catch (error) {
             alert(error.response.data.errors);
         }

@@ -1,7 +1,8 @@
 import { React, useEffect, useState} from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import api from "../../services/api";
+import { getProdutoVitrine } from "../../services/vitrineService";
+import { adicionarItemCarrinho } from "../../services/carrinhoService";
 import './styles.css';
 import padlock from "../../assets/padlock.png"
 
@@ -27,7 +28,7 @@ export default function DetalheProduto() {
 
     async function loadProduto() {
         try {
-            const response = await api.get(`api/v1/Vitrine/${produtoId}`);
+            const response = await getProdutoVitrine(produtoId);
             const produto = response.data.data;
 
             setId(produto.id);
@@ -62,7 +63,7 @@ export default function DetalheProduto() {
             };
     
             try {
-                await api.post('api/v1/Carrinho/adicionar-item', data);            
+                await adicionarItemCarrinho(data);
             } catch (error) {
                 alert(error.response.data.erros);
             }

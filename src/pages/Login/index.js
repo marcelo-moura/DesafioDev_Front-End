@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 
-import api from "../../services/api";
+import { signin } from "../../services/authService";
 import './styles.css';
 
 import logoImage from '../../assets/logo.svg';
@@ -23,7 +23,7 @@ export default function Login() {
         };
 
         try {
-            const response = await api.post('/api/v1/Auth/signIn', data);
+            const response = await signin(data);
 
             var decoded = jwtDecode(response.data.data.accessToken);
                         

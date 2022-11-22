@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiTrash2 } from 'react-icons/fi';
 
-import api from "../../services/api";
+import { getCarrinho } from "../../services/carrinhoService";
 import './styles.css';
 import padlock from "../../assets/padlock.png"
 
@@ -26,7 +26,7 @@ export default function Carrinho() {
         }
         else {
             try {
-                const response = await api.get(`api/v1/Carrinho/meu-carrinho?clienteId=${idUsuario}`);  
+                const response = await getCarrinho(idUsuario);  
                 if(response.data.data) {
                     setCarrinho(response.data.data);
                     setProdutosCarrinho(response.data.data.items);

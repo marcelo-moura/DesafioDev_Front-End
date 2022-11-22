@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
-import api from "../../services/api";
+import { createProduto } from "../../services/produtoService";
 import './styles.css';
 
 export default function NovoProduto() {
@@ -30,7 +30,7 @@ export default function NovoProduto() {
         };
 
         try {
-            await api.post('api/v1/Produto', data);            
+            await createProduto(data);
         } catch (error) {
             alert(error.response.data.erros);
         }

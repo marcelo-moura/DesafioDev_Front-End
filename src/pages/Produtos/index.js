@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 
-import api from "../../services/api";
+import { deleteProduto, getProdutos } from "../../services/produtoService";
 import './styles.css';
 
 export default function Produtos() {
@@ -12,7 +12,7 @@ export default function Produtos() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get('api/v1/Produto/1/20/1/asc').then(response => {
+        getProdutos().then(response => {
             setProdutos(response.data.data.listObject);
         })
     }, []);
@@ -23,7 +23,7 @@ export default function Produtos() {
 
     async function deletarProduto(id) {
         try {
-            await api.delete(`api/v1/Produto/${id}`);
+            await deleteProduto(id);
             setProdutos(produtos.filter(produto => produto.id !== id));
         } catch (error) {
             alert(error.response.data.errors);
